@@ -1,0 +1,81 @@
+88 – Merge Sorted Array
+   class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = m - 1;       
+        int j = n - 1;      
+        int k = m + n - 1;   
+
+        while (i >= 0 && j >= 0) {
+            if (nums1[i] > nums2[j]) {
+                nums1[k] = nums1[i];
+                i--;
+            } else {
+                nums1[k] = nums2[j];
+                j--;
+            }
+            k--;
+        }
+        while (j >= 0) {
+            nums1[k] = nums2[j];
+            j--;
+            k--;
+        }
+    }
+}
+
+912 – Sort an Array
+   class Solution {
+    public int[] sortArray(int[] nums) {
+        mergeSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    private void mergeSort(int[] nums, int left, int right) {
+        if (left >= right) return;
+        int mid = left + (right - left) / 2;
+        mergeSort(nums, left, mid);
+        mergeSort(nums, mid + 1, right);
+        merge(nums, left, mid, right);
+    }
+
+    private void merge(int[] nums, int left, int mid, int right) {
+        int[] temp = new int[right - left + 1];
+        int i = left, j = mid + 1, k = 0;
+
+        while (i <= mid && j <= right) {
+            if (nums[i] <= nums[j]) temp[k++] = nums[i++];
+            else temp[k++] = nums[j++];
+        }
+        while (i <= mid) temp[k++] = nums[i++];
+        while (j <= right) temp[k++] = nums[j++];
+
+        for (i = 0; i < temp.length; i++) {
+            nums[left + i] = temp[i];
+        }
+    }
+}
+
+215 – Kth Largest Element in an Array
+53 – Maximum Subarray
+    
+4 – Median of Two Sorted Arrays
+    class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        int[] res = new int[m + n];
+        for (int i = 0; i < m; i++) {
+            res[i] = nums1[i];
+        }
+        for (int i = 0; i < n; i++) {
+            res[m + i] = nums2[i];
+        }
+        Arrays.sort(res);
+        int len = m + n;
+        if (len % 2 == 0) {
+            return (res[len / 2 - 1] + res[len / 2]) / 2.0;
+        } else {
+            return res[len / 2];
+        }
+    }
+}
