@@ -1,7 +1,51 @@
 
 704 – Binary Search
 35 – Search Insert Position
+  class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                return mid; 
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1; 
+            }
+        }
+
+       
+        return left;
+    }
+}
+
 74 – Search a 2D Matrix
+   class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m=matrix.length;
+        int n=matrix[0].length;
+        int low = 0;
+        int high =m*n-1;
+        while(low <=high){
+            int mi =(low+high)/2;
+            int row= mi/n;
+            int col =mi%n;
+            int mid = matrix[row][col];
+            if(mid == target) return true;
+            else if(mid < target){
+                low = mi+1;
+            }
+            else{
+                high= mi-1;
+            }
+        }
+        return false;
+    }
+}
 33 – Search in Rotated Sorted Array
+  
 162 – Find Peak Element
 
